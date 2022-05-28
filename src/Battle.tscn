@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/Fonts/NES.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Shishiro_Botan_Full_Body_Illustration.webp" type="Texture" id=2]
@@ -75,7 +75,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=12]
 resource_name = "enemy_died"
 tracks/0/type = "value"
 tracks/0/path = NodePath("BotanContainer/Botan:modulate")
@@ -106,8 +106,23 @@ tracks/0/keys = {
 "values": [ Vector2( 8, 2 ), Vector2( 4, 7 ), Vector2( 10, 3 ), Vector2( 10, 5 ), Vector2( 4, 2 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "shake"
+[sub_resource type="Animation" id=15]
+resource_name = "player_died"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=14]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera2D:position")
@@ -212,7 +227,7 @@ margin_right = 502.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER"
+text = "SNEED"
 align = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="PlayerPanel/PlayerData"]
@@ -353,9 +368,10 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/enemy_damaged = SubResource( 11 )
-anims/enemy_died = SubResource( 14 )
+anims/enemy_died = SubResource( 12 )
 anims/mini_shake = SubResource( 13 )
-anims/shake = SubResource( 12 )
+anims/player_died = SubResource( 15 )
+anims/shake = SubResource( 14 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
