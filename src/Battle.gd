@@ -23,7 +23,7 @@ func _ready():
 	
 	$TalkStreamPlayer.play()
 	
-	display_text("Botan appears!")
+	display_text("Botan appears.")
 	yield(self, "textbox_closed")
 	
 	$ActionsPanel.show()
@@ -44,16 +44,6 @@ func display_text(text):
 	$ActionsPanel.hide()
 	$Textbox.show()
 	$Textbox/Label.text = text
-
-func _on_Run_pressed():
-	display_text("You got away safely!")
-	yield(self, "textbox_closed")
-	
-	$AnimationPlayer.play("fade_out")
-	yield($AnimationPlayer, "animation_finished")
-	
-	yield(get_tree().create_timer(0.25), "timeout")
-	get_tree().quit()
 
 func enemy_turn():
 	display_text("Botan slashes at you with her claws!")
@@ -81,7 +71,7 @@ func enemy_turn():
 		display_text("You were defeated...")
 		yield(self, "textbox_closed")
 		
-		$AnimationPlayer.play("player_died")
+		$AnimationPlayer.play("fade_out")
 		yield($AnimationPlayer, "animation_finished")
 		
 		get_tree().quit()
@@ -133,3 +123,13 @@ func _on_Defend_pressed():
 	yield(get_tree().create_timer(0.25), "timeout")
 	
 	enemy_turn()
+
+func _on_Run_pressed():
+	display_text("You escaped successfully.")
+	yield(self, "textbox_closed")
+	
+	$AnimationPlayer.play("fade_out")
+	yield($AnimationPlayer, "animation_finished")
+	
+	yield(get_tree().create_timer(0.25), "timeout")
+	get_tree().quit()
