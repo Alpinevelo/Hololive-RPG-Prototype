@@ -18,10 +18,15 @@ func _ready():
 	
 	$Textbox.hide()
 	$ActionsPanel.hide()
+	$EnemyHealth.hide()
+	$PlayerPanel.hide()
 	
 	display_text("Botan appears!")
 	yield(self, "textbox_closed")
+	
 	$ActionsPanel.show()
+	$EnemyHealth.show()
+	$PlayerPanel.show()
 
 func set_health(progress_bar, health, max_health):
 	progress_bar.value = health
