@@ -21,6 +21,8 @@ func _ready():
 	$EnemyHealth.hide()
 	$PlayerPanel.hide()
 	
+	$TalkStreamPlayer.play()
+	
 	display_text("Botan appears!")
 	yield(self, "textbox_closed")
 	
@@ -32,6 +34,7 @@ func set_health(progress_bar, health, max_health):
 	progress_bar.value = health
 	progress_bar.max_value = max_health
 	progress_bar.get_node("Label").text = "HP:%d/%d" % [health, max_health]
+	
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(BUTTON_LEFT):
 		$Textbox.hide()
@@ -42,10 +45,13 @@ func display_text(text):
 	$Textbox.show()
 	$Textbox/Label.text = text
 
-
 func _on_Run_pressed():
 	display_text("You got away safely!")
 	yield(self, "textbox_closed")
+	
+	$AnimationPlayer.play("fade_out")
+	yield($AnimationPlayer, "animation_finished")
+	
 	yield(get_tree().create_timer(0.25), "timeout")
 	get_tree().quit()
 
@@ -84,6 +90,11 @@ func enemy_turn():
 	$ActionsPanel.show()
 
 func _on_Attack_pressed():
+	if $TalkStreamPlayer.playing == true:
+		$TalkStreamPlayer.stop()
+		yield($TalkStreamPlayer, "finished")
+		$BattleStreamPlayer.play()
+	
 	display_text("You swing your sword!")
 	yield(self, "textbox_closed")
 	
@@ -109,8 +120,12 @@ func _on_Attack_pressed():
 		yield(get_tree().create_timer(1), "timeout")
 	enemy_turn()
 
-
 func _on_Defend_pressed():
+	if $TalkStreamPlayer.playing == true:
+		$TalkStreamPlayer.stop()
+		yield($TalkStreamPlayer, "finished")
+		$BattleStreamPlayer.play()
+	
 	is_defending = true
 	display_text("You brace yourself.")
 	yield(self, "textbox_closed")

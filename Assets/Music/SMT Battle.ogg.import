@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SMT Battle.ogg-9d24ebeaaf82f6e00b23cc1607cbda6b.oggstr"
+
+[deps]
+
+source_file="res://Assets/Music/SMT Battle.ogg"
+dest_files=[ "res://.import/SMT Battle.ogg-9d24ebeaaf82f6e00b23cc1607cbda6b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

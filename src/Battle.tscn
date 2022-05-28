@@ -1,10 +1,12 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Assets/Fonts/NES.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Shishiro_Botan_Full_Body_Illustration.webp" type="Texture" id=2]
 [ext_resource path="res://Assets/BG/battleback1.png" type="Texture" id=3]
 [ext_resource path="res://src/Battle.gd" type="Script" id=4]
 [ext_resource path="res://src/Botan.tres" type="Resource" id=5]
+[ext_resource path="res://Assets/Music/SMT Talk.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Music/SMT Battle.ogg" type="AudioStream" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.054902, 1, 0, 1 )
@@ -90,6 +92,22 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=15]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
 [sub_resource type="Animation" id=13]
 resource_name = "mini_shake"
 length = 0.5
@@ -104,22 +122,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 8, 2 ), Vector2( 4, 7 ), Vector2( 10, 3 ), Vector2( 10, 5 ), Vector2( 4, 2 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=15]
-resource_name = "player_died"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -369,13 +371,21 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/enemy_damaged = SubResource( 11 )
 anims/enemy_died = SubResource( 12 )
+anims/fade_out = SubResource( 15 )
 anims/mini_shake = SubResource( 13 )
-anims/player_died = SubResource( 15 )
 anims/shake = SubResource( 14 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
+
+[node name="TalkStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -5.0
+
+[node name="BattleStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -5.0
 
 [connection signal="pressed" from="ActionsPanel/Actions/Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/Defend" to="." method="_on_Defend_pressed"]
