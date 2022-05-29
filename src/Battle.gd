@@ -46,6 +46,11 @@ func display_text(text):
 	$Textbox/Label.text = text
 
 func enemy_turn():
+	if $TalkStreamPlayer.playing == true:
+		$TalkStreamPlayer.stop()
+		yield($TalkStreamPlayer, "finished")
+		$BattleStreamPlayer.play()
+	
 	display_text("Botan slashes at you with her claws!")
 	yield(self, "textbox_closed")
 	
@@ -125,11 +130,35 @@ func _on_Defend_pressed():
 	enemy_turn()
 
 func _on_Run_pressed():
-	display_text("You escaped successfully.")
-	yield(self, "textbox_closed")
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
 	
-	$AnimationPlayer.play("fade_out")
-	yield($AnimationPlayer, "animation_finished")
+	var escape = rng.randf()
 	
-	yield(get_tree().create_timer(0.25), "timeout")
-	get_tree().quit()
+	get_tree().get_root().set_disable_input(true)
+	yield(get_tree().create_timer(0.1), "timeout")
+	
+	display_text("You try to escape.")
+	yield(get_tree().create_timer(1), "timeout")
+	display_text("You try to escape..")
+	yield(get_tree().create_timer(1), "timeout")
+	display_text("You try to escape...")
+	yield(get_tree().create_timer(1.5), "timeout")
+	
+	get_tree().get_root().set_disable_input(false)
+	yield(get_tree().create_timer(0.1), "timeout")
+	
+	if escape < 0.5:
+		display_text("You escaped successfully.")
+		yield(self, "textbox_closed")
+		$EnemyHealth.hide()
+		$AnimationPlayer.play("fade_out")
+		yield($AnimationPlayer, "animation_finished")
+		
+		yield(get_tree().create_timer(0.25), "timeout")
+		get_tree().quit()
+	else:
+		display_text("You failed to escape!")
+		yield(self, "textbox_closed")
+		yield(get_tree().create_timer(0.25), "timeout")
+		enemy_turn()
