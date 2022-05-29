@@ -92,7 +92,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=13]
 resource_name = "fade_out"
 length = 2.0
 tracks/0/type = "value"
@@ -108,8 +108,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "mini_shake"
+[sub_resource type="Animation" id=14]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera2D:position")
@@ -124,7 +123,7 @@ tracks/0/keys = {
 "values": [ Vector2( 8, 2 ), Vector2( 4, 7 ), Vector2( 10, 3 ), Vector2( 10, 5 ), Vector2( 4, 2 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera2D:position")
@@ -164,6 +163,7 @@ margin_bottom = 140.038
 rect_min_size = Vector2( 0, 16 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
+max_value = 1000.0
 step = 1.0
 value = 50.0
 percent_visible = false
@@ -242,6 +242,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
+max_value = 1000.0
 step = 1.0
 value = 50.0
 percent_visible = false
@@ -371,9 +372,9 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/enemy_damaged = SubResource( 11 )
 anims/enemy_died = SubResource( 12 )
-anims/fade_out = SubResource( 15 )
-anims/mini_shake = SubResource( 13 )
-anims/shake = SubResource( 14 )
+anims/fade_out = SubResource( 13 )
+anims/mini_shake = SubResource( 14 )
+anims/shake = SubResource( 15 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

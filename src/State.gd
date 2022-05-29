@@ -1,5 +1,5 @@
 extends Node
 
-var current_health = 35
-var max_health = 35
+var current_health = 100
+var max_health = 100
 var damage = 20

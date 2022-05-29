@@ -7,5 +7,5 @@
 script = ExtResource( 1 )
 name = "Botan"
 texture = ExtResource( 2 )
-health = 45
+health = 200
 damage = 15

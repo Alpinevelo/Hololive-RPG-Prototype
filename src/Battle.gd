@@ -6,6 +6,8 @@ export(Resource) var enemy = null
 
 var current_player_health = 0
 var current_enemy_health = 0
+var stigma_charged = false
+var stigma_meter = 0
 var is_defending = false
 
 func _ready():
@@ -51,27 +53,82 @@ func enemy_turn():
 		yield($TalkStreamPlayer, "finished")
 		$BattleStreamPlayer.play()
 	
-	display_text("Botan slashes at you with her claws!")
-	yield(self, "textbox_closed")
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	stigma_meter += rng.randi_range(3, 5)
 	
-	if is_defending:
-		is_defending = false
+	if min(stigma_meter, 10) == 10:
+		stigma_meter = 0
+		stigma_charged = true
 		
-		current_player_health = max(0, current_player_health - (enemy.damage / 2))
-		set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
-		$AnimationPlayer.play("mini_shake")
-		yield($AnimationPlayer, "animation_finished")
-		display_text("You take %d damage!" % (enemy.damage / 2))
+		get_tree().get_root().set_disable_input(true)
+		yield(get_tree().create_timer(0.1), "timeout")
+		
+		display_text("Botan smirks.")
+		yield(get_tree().create_timer(1), "timeout")
+		display_text("Botan smirks..")
+		yield(get_tree().create_timer(1), "timeout")
+		display_text("Botan smirks...")
+		yield(get_tree().create_timer(1.5), "timeout")
+		
+		get_tree().get_root().set_disable_input(false)
+		yield(get_tree().create_timer(0.1), "timeout")
+		
+		display_text("Botan is overflowing with Stigma!")
+		yield(self, "textbox_closed")
+		$ActionsPanel.show()
+		return
+	
+	elif stigma_charged:
+		stigma_charged = false
+		
+		display_text("Botan unleashes a devasting attack!")
 		yield(self, "textbox_closed")
 		
+		if is_defending:
+			is_defending = false
+			
+			var DAMAGE = ((enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.2))) * 0.8
+			current_player_health = max(0, current_player_health - DAMAGE)
+			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
+			$AnimationPlayer.play("mini_shake")
+			yield($AnimationPlayer, "animation_finished")
+			display_text("You take %d damage!" % DAMAGE)
+			yield(self, "textbox_closed")
+			
+		else:
+			var DAMAGE = (enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.2))
+			current_player_health = max(0, current_player_health - DAMAGE)
+			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
+			$AnimationPlayer.play("shake")
+			yield($AnimationPlayer, "animation_finished")
+			display_text("You take %d damage!" % DAMAGE)
+			yield(self, "textbox_closed")
 	else:
-		current_player_health = max(0, current_player_health - enemy.damage)
-		set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
-		$AnimationPlayer.play("shake")
-		yield($AnimationPlayer, "animation_finished")
-		display_text("You take %d damage!" % enemy.damage)
+		display_text("Botan slashes at you with her claws!")
 		yield(self, "textbox_closed")
-	
+		
+		if is_defending:
+			is_defending = false
+			
+			var DAMAGE = (enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.2))) * 0.8
+			
+			current_player_health = max(0, current_player_health - DAMAGE)
+			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
+			$AnimationPlayer.play("mini_shake")
+			yield($AnimationPlayer, "animation_finished")
+			display_text("You take %d damage!" % DAMAGE)
+			yield(self, "textbox_closed")
+			
+		else:
+			var DAMAGE = enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.2))
+			current_player_health = max(0, current_player_health - DAMAGE)
+			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
+			$AnimationPlayer.play("shake")
+			yield($AnimationPlayer, "animation_finished")
+			display_text("You take %d damage!" % DAMAGE)
+			yield(self, "textbox_closed")
+		
 	if current_player_health == 0:
 		display_text("You were defeated...")
 		yield(self, "textbox_closed")
@@ -133,7 +190,7 @@ func _on_Run_pressed():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
-	var escape = rng.randf()
+	var escape_chance = rng.randf()
 	
 	get_tree().get_root().set_disable_input(true)
 	yield(get_tree().create_timer(0.1), "timeout")
@@ -148,7 +205,7 @@ func _on_Run_pressed():
 	get_tree().get_root().set_disable_input(false)
 	yield(get_tree().create_timer(0.1), "timeout")
 	
-	if escape < 0.5:
+	if escape_chance < 0.5:
 		display_text("You escaped successfully.")
 		yield(self, "textbox_closed")
 		$EnemyHealth.hide()
