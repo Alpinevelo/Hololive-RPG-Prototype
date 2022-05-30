@@ -44,6 +44,7 @@ func _input(event):
 
 func display_text(text):
 	$ActionsPanel.hide()
+	$PlayerPanel.hide()
 	$Textbox.show()
 	$Textbox/Label.text = text
 
@@ -77,6 +78,7 @@ func enemy_turn():
 		display_text("Botan is overflowing with Stigma!")
 		yield(self, "textbox_closed")
 		$ActionsPanel.show()
+		$PlayerPanel.show()
 		return
 	
 	elif stigma_charged:
@@ -88,7 +90,7 @@ func enemy_turn():
 		if is_defending:
 			is_defending = false
 			
-			var DAMAGE = ((enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.2))) * 0.8
+			var DAMAGE = ((enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("mini_shake")
@@ -97,7 +99,7 @@ func enemy_turn():
 			yield(self, "textbox_closed")
 			
 		else:
-			var DAMAGE = (enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.2))
+			var DAMAGE = (enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.3))
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("shake")
@@ -111,7 +113,7 @@ func enemy_turn():
 		if is_defending:
 			is_defending = false
 			
-			var DAMAGE = (enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.2))) * 0.8
+			var DAMAGE = (enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8
 			
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
@@ -121,7 +123,7 @@ func enemy_turn():
 			yield(self, "textbox_closed")
 			
 		else:
-			var DAMAGE = enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.2))
+			var DAMAGE = enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.3))
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("shake")
@@ -140,6 +142,7 @@ func enemy_turn():
 		yield(get_tree().create_timer(1), "timeout")
 
 	$ActionsPanel.show()
+	$PlayerPanel.show()
 
 func _on_Attack_pressed():
 	if $TalkStreamPlayer.playing == true:

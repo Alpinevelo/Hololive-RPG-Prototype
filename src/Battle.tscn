@@ -229,7 +229,7 @@ margin_right = 502.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 5 )
-text = "SNEED"
+text = "???"
 align = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="PlayerPanel/PlayerData"]
@@ -335,12 +335,11 @@ enabled_focus_mode = 0
 text = "RUN"
 
 [node name="Textbox" type="Panel" parent="."]
-visible = false
 anchor_right = 1.0
 margin_left = 16.0
-margin_top = 16.0
+margin_top = 484.066
 margin_right = -16.0
-margin_bottom = 118.0
+margin_bottom = 586.066
 custom_styles/panel = SubResource( 8 )
 
 [node name="Label" type="Label" parent="Textbox"]
