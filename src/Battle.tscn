@@ -335,6 +335,7 @@ enabled_focus_mode = 0
 text = "RUN"
 
 [node name="Textbox" type="Panel" parent="."]
+visible = false
 anchor_right = 1.0
 margin_left = 16.0
 margin_top = 484.066

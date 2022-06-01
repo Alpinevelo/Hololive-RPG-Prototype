@@ -150,17 +150,38 @@ func _on_Attack_pressed():
 		yield($TalkStreamPlayer, "finished")
 		$BattleStreamPlayer.play()
 	
-	display_text("You swing your sword!")
-	yield(self, "textbox_closed")
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
 	
-	current_enemy_health = max(0, current_enemy_health - State.damage)
-	set_health($EnemyHealth, current_enemy_health, enemy.health)
+	var crit = rng.randf_range(0.0, 1.0)
 	
-	$AnimationPlayer.play("enemy_damaged")
-	yield($AnimationPlayer, "animation_finished")
-	
-	display_text("You dealt %d damage!" % State.damage)
-	yield(self, "textbox_closed")
+	if crit < 0.05:
+		display_text("You viciously swing your sword!")
+		yield(self, "textbox_closed")
+		
+		var DAMAGE = (State.damage * 1.5) + (State.damage * rng.randf_range(0.0, 0.3))
+		current_enemy_health = max(0, current_enemy_health - DAMAGE)
+		set_health($EnemyHealth, current_enemy_health, enemy.health)
+		
+		$AnimationPlayer.play("enemy_damaged")
+		yield($AnimationPlayer, "animation_finished")
+		
+		display_text("You dealt %d damage!" % DAMAGE)
+		yield(self, "textbox_closed")
+		
+	else:
+		display_text("You swing your sword!")
+		yield(self, "textbox_closed")
+		
+		var DAMAGE = (State.damage) + (State.damage * rng.randf_range(0.0, 0.3))
+		current_enemy_health = max(0, current_enemy_health - DAMAGE)
+		set_health($EnemyHealth, current_enemy_health, enemy.health)
+		
+		$AnimationPlayer.play("enemy_damaged")
+		yield($AnimationPlayer, "animation_finished")
+		
+		display_text("You dealt %d damage!" % DAMAGE)
+		yield(self, "textbox_closed")
 
 	if current_enemy_health == 0:
 		display_text("Botan was defeated!")
