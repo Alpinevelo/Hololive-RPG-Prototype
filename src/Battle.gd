@@ -22,6 +22,7 @@ func _ready():
 	$ActionsPanel.hide()
 	$EnemyHealth.hide()
 	$PlayerPanel.hide()
+	$MagicPanel.hide()
 	
 	$TalkStreamPlayer.play()
 	
@@ -90,7 +91,7 @@ func enemy_turn():
 		if is_defending:
 			is_defending = false
 			
-			var DAMAGE = ((enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8
+			var DAMAGE = floor(((enemy.damage * 2) + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8)
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("mini_shake")
@@ -99,7 +100,7 @@ func enemy_turn():
 			yield(self, "textbox_closed")
 			
 		else:
-			var DAMAGE = (enemy.damage * 3) + (enemy.damage * rng.randf_range(0.0, 0.3))
+			var DAMAGE = floor((enemy.damage * 2) + (enemy.damage * rng.randf_range(0.0, 0.3)))
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("shake")
@@ -113,7 +114,7 @@ func enemy_turn():
 		if is_defending:
 			is_defending = false
 			
-			var DAMAGE = (enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8
+			var DAMAGE = floor((enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8)
 			
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
@@ -123,7 +124,7 @@ func enemy_turn():
 			yield(self, "textbox_closed")
 			
 		else:
-			var DAMAGE = enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.3))
+			var DAMAGE = floor(enemy.damage + (enemy.damage * rng.randf_range(0.0, 0.3)))
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("shake")
@@ -131,7 +132,7 @@ func enemy_turn():
 			display_text("You take %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
 		
-	if current_player_health == 0:
+	if current_player_health <= 0:
 		display_text("You were defeated...")
 		yield(self, "textbox_closed")
 		
@@ -145,6 +146,9 @@ func enemy_turn():
 	$PlayerPanel.show()
 
 func _on_Attack_pressed():
+	if $MagicPanel.is_visible_in_tree():
+		$MagicPanel.hide()
+		
 	if $TalkStreamPlayer.playing == true:
 		$TalkStreamPlayer.stop()
 		yield($TalkStreamPlayer, "finished")
@@ -159,7 +163,7 @@ func _on_Attack_pressed():
 		display_text("You viciously swing your sword!")
 		yield(self, "textbox_closed")
 		
-		var DAMAGE = (State.damage * 1.5) + (State.damage * rng.randf_range(0.0, 0.3))
+		var DAMAGE = floor((State.damage * 1.5) + (State.damage * rng.randf_range(0.0, 0.3)))
 		current_enemy_health = max(0, current_enemy_health - DAMAGE)
 		set_health($EnemyHealth, current_enemy_health, enemy.health)
 		
@@ -173,7 +177,7 @@ func _on_Attack_pressed():
 		display_text("You swing your sword!")
 		yield(self, "textbox_closed")
 		
-		var DAMAGE = (State.damage) + (State.damage * rng.randf_range(0.0, 0.3))
+		var DAMAGE = floor((State.damage) + (State.damage * rng.randf_range(0.0, 0.3)))
 		current_enemy_health = max(0, current_enemy_health - DAMAGE)
 		set_health($EnemyHealth, current_enemy_health, enemy.health)
 		
@@ -183,7 +187,7 @@ func _on_Attack_pressed():
 		display_text("You dealt %d damage!" % DAMAGE)
 		yield(self, "textbox_closed")
 
-	if current_enemy_health == 0:
+	if current_enemy_health <= 0:
 		display_text("Botan was defeated!")
 		yield(self, "textbox_closed")
 		
@@ -197,6 +201,9 @@ func _on_Attack_pressed():
 	enemy_turn()
 
 func _on_Defend_pressed():
+	if $MagicPanel.is_visible_in_tree():
+		$MagicPanel.hide()
+		
 	if $TalkStreamPlayer.playing == true:
 		$TalkStreamPlayer.stop()
 		yield($TalkStreamPlayer, "finished")
@@ -213,6 +220,9 @@ func _on_Defend_pressed():
 func _on_Run_pressed():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
+	
+	if $MagicPanel.is_visible_in_tree():
+		$MagicPanel.hide()
 	
 	var escape_chance = rng.randf()
 	
@@ -243,3 +253,25 @@ func _on_Run_pressed():
 		yield(self, "textbox_closed")
 		yield(get_tree().create_timer(0.25), "timeout")
 		enemy_turn()
+
+func _on_Magic_pressed():
+	if $MagicPanel.is_visible_in_tree():
+		$MagicPanel.hide()
+	else:
+		$MagicPanel.show()
+
+func _on_Heal_pressed():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	yield(get_tree().create_timer(0.1), "timeout")
+	$MagicPanel.hide()
+	
+	var HEAL = State.magic + (State.magic * rng.randf_range(0.0, 1.0))
+	current_player_health = min(State.max_health, (current_player_health + HEAL))
+	set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
+	
+	display_text("You were healed for %d hitpoints!" % HEAL)
+	yield(self, "textbox_closed")
+	
+	enemy_turn()

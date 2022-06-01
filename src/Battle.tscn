@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Assets/Fonts/NES.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Shishiro_Botan_Full_Body_Illustration.webp" type="Texture" id=2]
@@ -137,6 +137,14 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 24.3907, 4.99382 ), Vector2( 9.27167, 19.8378 ), Vector2( 61.6211, 3.72234 ), Vector2( 73.8706, 19.6143 ), Vector2( 41.3192, 18.0108 ), Vector2( 0, 0 ) ]
 }
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
 
 [node name="Battle" type="Control"]
 anchor_right = 1.0
@@ -283,9 +291,12 @@ margin_right = -6.0
 margin_bottom = -6.0
 custom_constants/separation = 6
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Attack" type="Button" parent="ActionsPanel/Actions"]
-margin_right = 333.0
+margin_right = 248.0
 margin_bottom = 64.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -300,9 +311,26 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 enabled_focus_mode = 0
 text = "ATTACK"
 
+[node name="Magic" type="Button" parent="ActionsPanel/Actions"]
+margin_left = 254.0
+margin_right = 503.0
+margin_bottom = 64.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+enabled_focus_mode = 0
+text = "MAGIC"
+
 [node name="Defend" type="Button" parent="ActionsPanel/Actions"]
-margin_left = 339.0
-margin_right = 672.0
+margin_left = 509.0
+margin_right = 757.0
 margin_bottom = 64.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -318,7 +346,7 @@ enabled_focus_mode = 0
 text = "DEFEND"
 
 [node name="Run" type="Button" parent="ActionsPanel/Actions"]
-margin_left = 678.0
+margin_left = 763.0
 margin_right = 1012.0
 margin_bottom = 64.0
 focus_mode = 0
@@ -388,6 +416,42 @@ volume_db = -5.0
 stream = ExtResource( 7 )
 volume_db = -5.0
 
+[node name="MagicPanel" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0.917647 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 100.0
+margin_top = 100.0
+margin_right = -100.0
+margin_bottom = -100.0
+custom_styles/panel = SubResource( 16 )
+
+[node name="Spells" type="VBoxContainer" parent="MagicPanel"]
+margin_right = 208.0
+margin_bottom = 399.0
+custom_constants/separation = 6
+
+[node name="Heal" type="Button" parent="MagicPanel/Spells"]
+margin_right = 208.0
+margin_bottom = 23.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+enabled_focus_mode = 0
+text = "HEAL"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="ActionsPanel/Actions/Attack" to="." method="_on_Attack_pressed"]
+[connection signal="pressed" from="ActionsPanel/Actions/Magic" to="." method="_on_Magic_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/Defend" to="." method="_on_Defend_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/Run" to="." method="_on_Run_pressed"]
+[connection signal="pressed" from="MagicPanel/Spells/Heal" to="." method="_on_Heal_pressed"]
