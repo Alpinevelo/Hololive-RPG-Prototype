@@ -429,11 +429,17 @@ custom_styles/panel = SubResource( 16 )
 [node name="Spells" type="VBoxContainer" parent="MagicPanel"]
 margin_right = 208.0
 margin_bottom = 399.0
-custom_constants/separation = 6
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Heal" type="Button" parent="MagicPanel/Spells"]
-margin_right = 208.0
-margin_bottom = 23.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 213.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 208, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
