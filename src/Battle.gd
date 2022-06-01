@@ -58,7 +58,7 @@ func enemy_turn():
 	rng.randomize()
 	stigma_meter += rng.randi_range(3, 5)
 	
-	if min(stigma_meter, 10) == 10:
+	if min(stigma_meter, 15) == 15:
 		stigma_meter = 0
 		stigma_charged = true
 		
