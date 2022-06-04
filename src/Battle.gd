@@ -1,3 +1,4 @@
+#Sound Effects licensed under the Mixkit Sound Effects Free License
 extends Control
 
 signal textbox_closed
@@ -95,6 +96,7 @@ func enemy_turn():
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("mini_shake")
+			$SFXStigmaAttack.play()
 			yield($AnimationPlayer, "animation_finished")
 			display_text("You take %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
@@ -104,6 +106,7 @@ func enemy_turn():
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("shake")
+			$SFXStigmaAttack.play()
 			yield($AnimationPlayer, "animation_finished")
 			display_text("You take %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
@@ -119,6 +122,7 @@ func enemy_turn():
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("mini_shake")
+			$SFXBotanBasicAttack.play()
 			yield($AnimationPlayer, "animation_finished")
 			display_text("You take %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
@@ -128,6 +132,7 @@ func enemy_turn():
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("shake")
+			$SFXBotanBasicAttack.play()
 			yield($AnimationPlayer, "animation_finished")
 			display_text("You take %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
@@ -168,6 +173,7 @@ func _on_Attack_pressed():
 		set_health($EnemyHealth, current_enemy_health, enemy.health)
 		
 		$AnimationPlayer.play("enemy_damaged")
+		$SFXPlayerCriticalHit.play()
 		yield($AnimationPlayer, "animation_finished")
 		
 		display_text("You dealt %d damage!" % DAMAGE)
@@ -182,6 +188,7 @@ func _on_Attack_pressed():
 		set_health($EnemyHealth, current_enemy_health, enemy.health)
 		
 		$AnimationPlayer.play("enemy_damaged")
+		$SFXPlayerBasicAttack.play()
 		yield($AnimationPlayer, "animation_finished")
 		
 		display_text("You dealt %d damage!" % DAMAGE)
@@ -270,7 +277,8 @@ func _on_Heal_pressed():
 	var HEAL = State.magic + (State.magic * rng.randf_range(0.0, 1.0))
 	current_player_health = min(State.max_health, (current_player_health + HEAL))
 	set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
-	
+	$SFXHeal.play()
+	yield($SFXHeal, "finished")
 	display_text("You were healed for %d hitpoints!" % HEAL)
 	yield(self, "textbox_closed")
 	

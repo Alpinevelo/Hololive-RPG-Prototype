@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/Fonts/NES.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Shishiro_Botan_Full_Body_Illustration.webp" type="Texture" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://src/Botan.tres" type="Resource" id=5]
 [ext_resource path="res://Assets/Music/SMT Talk.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Music/SMT Battle.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Sound Effects/mixkit-samurai-sword-impact-2789.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Sound Effects/mixkit-spellcaster-fairy-swoosh-1463.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sound Effects/mixkit-heavy-sword-smashes-metal-2795.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sound Effects/mixkit-impact-of-a-strong-punch-2155.mp3" type="AudioStream" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.054902, 1, 0, 1 )
@@ -410,13 +414,14 @@ current = true
 
 [node name="TalkStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -5.0
+volume_db = -8.0
 
 [node name="BattleStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = -5.0
+volume_db = -8.0
 
 [node name="MagicPanel" type="Panel" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.917647 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -455,6 +460,25 @@ text = "HEAL"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SFXBotanBasicAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -5.0
+
+[node name="SFXHeal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="SFXStigmaAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -5.0
+
+[node name="SFXPlayerBasicAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -5.0
+
+[node name="SFXPlayerCriticalHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -5.0
 
 [connection signal="pressed" from="ActionsPanel/Actions/Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/Magic" to="." method="_on_Magic_pressed"]
