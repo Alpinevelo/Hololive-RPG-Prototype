@@ -98,7 +98,7 @@ func enemy_turn():
 			$AnimationPlayer.play("mini_shake")
 			$SFXStigmaAttack.play()
 			yield($AnimationPlayer, "animation_finished")
-			display_text("You take %d damage!" % DAMAGE)
+			display_text("You took %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
 			
 		else:
@@ -108,7 +108,7 @@ func enemy_turn():
 			$AnimationPlayer.play("shake")
 			$SFXStigmaAttack.play()
 			yield($AnimationPlayer, "animation_finished")
-			display_text("You take %d damage!" % DAMAGE)
+			display_text("You took %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
 	else:
 		display_text("Botan slashes at you with her claws!")
@@ -124,7 +124,7 @@ func enemy_turn():
 			$AnimationPlayer.play("mini_shake")
 			$SFXBotanBasicAttack.play()
 			yield($AnimationPlayer, "animation_finished")
-			display_text("You take %d damage!" % DAMAGE)
+			display_text("You took %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
 			
 		else:
@@ -134,7 +134,7 @@ func enemy_turn():
 			$AnimationPlayer.play("shake")
 			$SFXBotanBasicAttack.play()
 			yield($AnimationPlayer, "animation_finished")
-			display_text("You take %d damage!" % DAMAGE)
+			display_text("You took %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
 		
 	if current_player_health <= 0:
