@@ -164,7 +164,7 @@ func _on_Attack_pressed():
 	
 	var crit = rng.randf_range(0.0, 1.0)
 	
-	if crit < 0.05:
+	if crit < 0.15:
 		display_text("You viciously swing your sword!")
 		yield(self, "textbox_closed")
 		

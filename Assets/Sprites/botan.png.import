@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shishiro_Botan_Full_Body_Illustration.webp-49458b16b5a0a9851c61943fdedbdb34.stex"
+path="res://.import/botan.png-44f86eff4380976f171360c8474cf97a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Shishiro_Botan_Full_Body_Illustration.webp"
-dest_files=[ "res://.import/Shishiro_Botan_Full_Body_Illustration.webp-49458b16b5a0a9851c61943fdedbdb34.stex" ]
+source_file="res://Assets/Sprites/botan.png"
+dest_files=[ "res://.import/botan.png-44f86eff4380976f171360c8474cf97a.stex" ]
 
 [params]
 

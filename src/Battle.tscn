@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/Fonts/NES.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Assets/Shishiro_Botan_Full_Body_Illustration.webp" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/botan.png" type="Texture" id=2]
 [ext_resource path="res://Assets/BG/battleback1.png" type="Texture" id=3]
 [ext_resource path="res://src/Battle.gd" type="Script" id=4]
 [ext_resource path="res://src/Botan.tres" type="Resource" id=5]
@@ -168,10 +168,10 @@ __meta__ = {
 }
 
 [node name="EnemyHealth" type="ProgressBar" parent="."]
-margin_left = 555.179
-margin_top = 100.038
-margin_right = 1017.18
-margin_bottom = 140.038
+margin_left = 648.0
+margin_top = 108.0
+margin_right = 1018.0
+margin_bottom = 140.0
 rect_min_size = Vector2( 0, 16 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
@@ -199,17 +199,18 @@ __meta__ = {
 [node name="BotanContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -239.626
-margin_top = 64.0148
-margin_right = 222.374
-margin_bottom = 1584.01
+margin_left = -240.0
+margin_top = 64.0
+margin_right = 1701.0
+margin_bottom = 2297.0
+rect_scale = Vector2( 0.240033, 0.251291 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Botan" type="TextureRect" parent="BotanContainer"]
-margin_right = 462.0
-margin_bottom = 1500.0
+margin_right = 1941.0
+margin_bottom = 2233.0
 texture = ExtResource( 2 )
 stretch_mode = 4
 
