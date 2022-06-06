@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Funky-Gameplay_Looping.mp3-d25d78ece1787edd9c4d257ac614c43a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Funky-Gameplay_Looping.mp3"
+dest_files=[ "res://.import/Funky-Gameplay_Looping.mp3-d25d78ece1787edd9c4d257ac614c43a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -25,7 +25,7 @@ func _ready():
 	$PlayerPanel.hide()
 	$MagicPanel.hide()
 	
-	$TalkStreamPlayer.play()
+	$TalkStreamPlayer.play(1.25)
 	
 	display_text("Botan appears.")
 	yield(self, "textbox_closed")
@@ -78,6 +78,7 @@ func enemy_turn():
 		yield(get_tree().create_timer(0.1), "timeout")
 		
 		display_text("Botan is overflowing with Stigma!")
+		$SFXStigmaCharged.play()
 		yield(self, "textbox_closed")
 		$ActionsPanel.show()
 		$PlayerPanel.show()
@@ -137,7 +138,7 @@ func enemy_turn():
 			display_text("You took %d damage!" % DAMAGE)
 			yield(self, "textbox_closed")
 		
-	if current_player_health <= 0:
+	if current_player_health < 1:
 		display_text("You were defeated...")
 		yield(self, "textbox_closed")
 		
@@ -194,7 +195,7 @@ func _on_Attack_pressed():
 		display_text("You dealt %d damage!" % DAMAGE)
 		yield(self, "textbox_closed")
 
-	if current_enemy_health <= 0:
+	if current_enemy_health < 1:
 		display_text("Botan was defeated!")
 		yield(self, "textbox_closed")
 		
@@ -272,6 +273,7 @@ func _on_Heal_pressed():
 	rng.randomize()
 	
 	yield(get_tree().create_timer(0.1), "timeout")
+	$ActionsPanel.hide()
 	$MagicPanel.hide()
 	
 	var HEAL = State.magic + (State.magic * rng.randf_range(0.0, 1.0))
@@ -280,6 +282,7 @@ func _on_Heal_pressed():
 	$SFXHeal.play()
 	yield($SFXHeal, "finished")
 	display_text("You were healed for %d hitpoints!" % HEAL)
+	$ActionsPanel.show()
 	yield(self, "textbox_closed")
 	
 	enemy_turn()

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Decisions.mp3-7499e818f83b5f746adce8cef4694973.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Decisions.mp3"
+dest_files=[ "res://.import/Decisions.mp3-7499e818f83b5f746adce8cef4694973.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
