@@ -1,5 +1,6 @@
 #Sound Effects licensed under the Mixkit Sound Effects Free License
-#PowerUp28.mp3 by Eric Matyas at https://soundimage.org
+#PowerUp28.mp3 and music by Eric Matyas at https://soundimage.org
+
 extends Control
 
 signal textbox_closed
