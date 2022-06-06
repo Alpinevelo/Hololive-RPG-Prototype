@@ -95,7 +95,7 @@ func enemy_turn():
 		if is_defending:
 			is_defending = false
 			
-			var DAMAGE = floor(((enemy.damage * 2) + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8)
+			var DAMAGE = floor(((enemy.damage * 1.5) + (enemy.damage * rng.randf_range(0.0, 0.3))) * 0.8)
 			current_player_health = max(0, current_player_health - DAMAGE)
 			set_health($PlayerPanel/PlayerData/ProgressBar, current_player_health, State.max_health)
 			$AnimationPlayer.play("mini_shake")
