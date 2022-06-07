@@ -27,6 +27,8 @@ func _ready():
 	$PlayerPanel.hide()
 	$MagicPanel.hide()
 	
+	$AnimationPlayer.play("fade_in")
+	yield($AnimationPlayer, "animation_finished")
 	$TalkStreamPlayer.play(1.25)
 	
 	display_text("Botan appears.")
@@ -147,7 +149,7 @@ func enemy_turn():
 		$AnimationPlayer.play("fade_out")
 		yield($AnimationPlayer, "animation_finished")
 		
-		get_tree().quit()
+		get_tree().change_scene("res://src/MainMenu.tscn")
 		yield(get_tree().create_timer(1), "timeout")
 
 	$ActionsPanel.show()
@@ -206,7 +208,7 @@ func _on_Attack_pressed():
 		$AnimationPlayer.play("enemy_died")
 		yield($AnimationPlayer, "animation_finished")
 		yield(get_tree().create_timer(0.25), "timeout")
-		get_tree().quit()
+		get_tree().change_scene("res://src/MainMenu.tscn")
 		yield(get_tree().create_timer(1), "timeout")
 	enemy_turn()
 
@@ -257,7 +259,8 @@ func _on_Run_pressed():
 		yield($AnimationPlayer, "animation_finished")
 		
 		yield(get_tree().create_timer(0.25), "timeout")
-		get_tree().quit()
+		get_tree().change_scene("res://src/MainMenu.tscn")
+		yield(get_tree().create_timer(1), "timeout")
 	else:
 		display_text("You failed to escape!")
 		yield(self, "textbox_closed")

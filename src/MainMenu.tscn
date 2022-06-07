@@ -1,0 +1,237 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://Assets/BG/battleback1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Fonts/Adventurer.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "enemy_damaged"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("BotanContainer/Botan:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "enemy_died"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BotanContainer/Botan:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 2 ), Vector2( 4, 7 ), Vector2( 10, 3 ), Vector2( 10, 5 ), Vector2( 4, 2 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 24.3907, 4.99382 ), Vector2( 9.27167, 19.8378 ), Vector2( 61.6211, 3.72234 ), Vector2( 73.8706, 19.6143 ), Vector2( 41.3192, 18.0108 ), Vector2( 0, 0 ) ]
+}
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 80.0
+margin_bottom = 21.0
+texture = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.5
+margin_top = -34.0
+margin_right = 28.5
+margin_bottom = 34.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+margin_right = 64.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 7 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+margin_top = 37.0
+margin_right = 64.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 8 )
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 74.0
+margin_right = 64.0
+margin_bottom = 96.0
+custom_fonts/font = SubResource( 9 )
+text = "Quit"
+
+[node name="CreditsPopup" type="PopupPanel" parent="."]
+margin_right = 400.0
+margin_bottom = 300.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditsPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_constants/separation = 60
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MixkitAttribute" type="Label" parent="CreditsPopup/VBoxContainer"]
+margin_right = 503.0
+margin_bottom = 31.0
+text = "Sound Effects licensed under the Mixkit Sound Effects Free License:
+ https://mixkit.co/license/#sfxFree"
+align = 1
+
+[node name="SoundimageAttribute" type="Label" parent="CreditsPopup/VBoxContainer"]
+margin_top = 91.0
+margin_right = 503.0
+margin_bottom = 105.0
+text = "PowerUp28.mp3 and music by Eric Matyas @ https://soundimage.org"
+align = 1
+
+[node name="ArtCredit" type="Label" parent="CreditsPopup/VBoxContainer"]
+margin_top = 165.0
+margin_right = 503.0
+margin_bottom = 179.0
+text = "Enemy character art by Anonymous"
+align = 1
+
+[node name="BGCredit" type="Label" parent="CreditsPopup/VBoxContainer"]
+margin_top = 239.0
+margin_right = 503.0
+margin_bottom = 253.0
+text = "Background art by Nidhoggn under Public Domain"
+align = 1
+
+[node name="FontCredit" type="Label" parent="CreditsPopup/VBoxContainer"]
+margin_top = 313.0
+margin_right = 503.0
+margin_bottom = 327.0
+text = "NES Cyrillic font by xbost under Public Domain"
+align = 1
+
+[node name="FontCredit2" type="Label" parent="CreditsPopup/VBoxContainer"]
+margin_top = 387.0
+margin_right = 503.0
+margin_bottom = 418.0
+text = "Adventurer font by Brian J Smith under Creative Commons Attribution License:
+ https://creativecommons.org/licenses/by/3.0/us/legalcode"
+align = 1
+
+[node name="AlpineveloCredit" type="Label" parent="CreditsPopup/VBoxContainer"]
+margin_top = 478.0
+margin_right = 503.0
+margin_bottom = 492.0
+text = "Game design and programming by Alpinevelo @ https://github.com/Alpinevelo"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/enemy_damaged = SubResource( 1 )
+anims/enemy_died = SubResource( 2 )
+anims/fade_in = SubResource( 3 )
+anims/fade_out = SubResource( 4 )
+anims/mini_shake = SubResource( 5 )
+anims/shake = SubResource( 6 )
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_CreditsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
